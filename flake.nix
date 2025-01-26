@@ -1,4 +1,4 @@
-
+{
   description = "My first flake!";
 
   inputs = {
