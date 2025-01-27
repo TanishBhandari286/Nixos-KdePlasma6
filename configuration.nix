@@ -14,6 +14,14 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  users.users.tanish.shell = "/run/current-system/sw/bin/zsh";
+  programs.zsh.enable = true;
+
+  services.tailscale.enable = true;
+
+
+
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -45,23 +53,15 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ hplip ];
+  };
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
+  hardware.bluetooth.enable = true;
 
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
+  security.rtkit.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -80,6 +80,8 @@
   # Enable automatic login for the user.
   services.xserver.displayManager.autoLogin.enable = true;
   services.xserver.displayManager.autoLogin.user = "tanish";
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -88,17 +90,115 @@ nixpkgs.config.allowUnfree = true;
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-        vim
-        wget
-	git
 	neovim
 	eza 
-	zoxide
-	fzf
-	ripgrep
 	obsidian
+	zsh
 	zinit
+	thefuck
+	bat
+    vscode
+    hplip
+    zed-editor
+    go
+    lua
+    python3
+    portal
+    python3Packages.pip
+    uv
+    clang
+    zig
+    rustup
+    nodePackages_latest.pnpm
+    nodePackages_latest.yarn
+    nodePackages_latest.nodejs
+    bun
+    jdk
+    maven
+    gcc
+    openssl
+    nodePackages_latest.live-server
+    git
+    gh
+    lazygit
+    lazydocker
+    bruno
+    postman
+    bruno-cli
+    gnumake
+    coreutils
+    nixfmt-rfc-style
+    meson
+    ninja
+    stow
+    wget
+    killall
+    starship
+    kitty
+    zoxide
+    fzf
+    tmux
+    progress
+    tree
+    alacritty
+    exfatprogs
+    yazi
+    p7zip
+    unzip
+    unrar
+    file-roller
+    ncdu
+    duf
+    htop
+    btop
+    aria2
+    qbittorrent
+    cloudflare-warp
+    tailscale
+    onedrive
+    pulseaudio
+    pavucontrol
+    ffmpeg
+    mpv
+    deadbeef-with-plugins
+    imagemagick
+    telegram-desktop
+    zoom-us
+    vesktop
+    element-desktop
+    google-chrome
+    stremio
+    pkg-config
+    libgcc
+    bc
+    networkmanagerapplet
+    cmatrix
+    lolcat
+    fastfetch
+    onefetch
+    microfetch
+    wireshark
+    ventoy
+    youtube-music
+    spotify
+    libvirt
+
+    # File systems
+    ntfs3g
+    os-prober
+
+
+
+
+
   ];
+
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
+  };
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
