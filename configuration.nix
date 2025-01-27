@@ -91,6 +91,7 @@ nixpkgs.config.allowUnfree = true;
   # $ nix search wget
   environment.systemPackages = with pkgs; [
 	neovim
+	caligula
 	eza 
 	obsidian
 	zsh
