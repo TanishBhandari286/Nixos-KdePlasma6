@@ -18,12 +18,14 @@
   programs.zsh.enable = true;
 
   services.tailscale.enable = true;
-
-
-
-
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  users.users.nixos = {
+  isNormalUser = true;
+  extraGroups = [ "docker" ];
+  };
+
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -104,6 +106,7 @@ nixpkgs.config.allowUnfree = true;
     go
     lua
     python3
+    rofi
     portal
     python3Packages.pip
     uv
